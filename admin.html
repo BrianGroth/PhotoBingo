@@ -14,9 +14,50 @@
 <p>Enter words for the bingo (one per line). At least 16 words required:</p>
 <textarea id="words-textarea" rows="10" cols="50" placeholder="One word per line"></textarea>
 <br><br>
-<button id="save-button">Save</button>
-<p><strong>Note:</strong> Your changes are saved to localStorage. To make changes permanent for all players, update words.json in the GitHub repository with the new subtitle and words.</p>
+<button id="generate-button">Generate Updated JSON</button>
 
-<script src="admin.js"></script>
+<h2>Updated JSON</h2>
+<p>Copy the JSON below and replace the content of <code>words.json</code> in your repository with it. Once committed, all players will see the updated words and subtitle.</p>
+<pre id="updated-json" style="background:#f0f0f0; padding:10px; white-space:pre-wrap;"></pre>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const subtitleInput = document.getElementById('subtitle-input');
+  const wordsTextarea = document.getElementById('words-textarea');
+  const generateButton = document.getElementById('generate-button');
+  const updatedJsonPre = document.getElementById('updated-json');
+
+  fetch('words.json')
+    .then(res => res.json())
+    .then(data => {
+      subtitleInput.value = data.subtitle || '';
+      wordsTextarea.value = (data.words || []).join('\n');
+    })
+    .catch(err => {
+      console.error('Error loading words.json:', err);
+      alert('Could not load words.json');
+    });
+
+  generateButton.addEventListener('click', () => {
+    const subtitle = subtitleInput.value.trim();
+    const words = wordsTextarea.value
+      .split('\n')
+      .map(w => w.trim())
+      .filter(w => w.length > 0);
+
+    if (words.length < 16) {
+      alert('You must provide at least 16 words.');
+      return;
+    }
+
+    const newData = {
+      subtitle: subtitle,
+      words: words
+    };
+
+    updatedJsonPre.textContent = JSON.stringify(newData, null, 2);
+  });
+});
+</script>
 </body>
 </html>
