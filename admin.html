@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Travel Photo Bingo - Admin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Admin Page - Set Subtitle and Words</h1>
+<p>Enter a subtitle for the game:</p>
+<input type="text" id="subtitle-input" placeholder="Enter subtitle here" style="width:100%;max-width:400px;">
+
+<p>Enter words for the bingo (one per line). At least 16 words required:</p>
+<textarea id="words-textarea" rows="10" cols="50" placeholder="One word per line"></textarea>
+<br><br>
+<button id="save-button">Save</button>
+<p><strong>Note:</strong> Your changes are saved to localStorage. To make changes permanent for all players, update words.json in the GitHub repository with the new subtitle and words.</p>
+
+<script src="admin.js"></script>
+</body>
+</html>
