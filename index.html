@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Travel Photo Bingo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Travel Photo Bingo</h1>
+<h2 id="subtitle"></h2>
+
+<div id="board"></div>
+
+<div id="controls">
+  <button id="reset-button">Card Reset</button>
+</div>
+
+<footer>
+  <small>This game created by Brian Groth by using ChatGPT and hosting it on Github.</small>
+</footer>
+
+<div id="win-message" class="hidden">
+  <div class="message-content">
+    <h2>You Won!</h2>
+    <p>Congratulations, you’ve completed a line!</p>
+    <button id="close-win">Close</button>
+  </div>
+</div>
+
+<input type="file" id="photo-input" accept="image/*" style="display:none" />
+
+<script src="script.js"></script>
+</body>
+</html>
