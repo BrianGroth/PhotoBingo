@@ -10,19 +10,26 @@ h1, h2 {
 }
 
 .bingo-board {
-  display: inline-block;
-  border: 2px solid #333;
+  display: block;
   margin: 0 auto;
+  width: 100%; 
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #333;
 }
 
+/* Each row is full width */
 .bingo-row {
   display: flex;
+  width: 100%;
 }
 
+/* Each cell is 1/4 of the board width.
+   We'll use viewport width units so the cells fit the screen.
+   100vw is the full viewport width, but we must account for margins.
+   We'll just rely on width: 100% of parent and flex distribution. */
 .bingo-cell {
   flex: 1;
-  width: 100px;
-  height: 100px;
   border: 1px solid #333;
   display: flex;
   justify-content: center;
@@ -30,6 +37,13 @@ h1, h2 {
   position: relative;
   cursor: pointer;
   overflow: hidden;
+
+  /* Make cell height equal to width by using vw */
+  /* Since we have 4 cells in a row, each cell is 25% of the parent's width.
+     We'll force a square shape by using the width of the parent. */
+  /* Let's use the width of the viewport: since .bingo-board is 100% width,
+     each cell is about 25% of viewport width. So: height = 25vw */
+  height: 25vw; 
 }
 
 .cell-content {
@@ -76,6 +90,7 @@ h1, h2 {
 footer {
   text-align: center;
   margin-top: 20px;
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: #666;
+  padding: 10px 0;
 }
