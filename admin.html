@@ -7,9 +7,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Admin Page - Set Subtitle and Words</h1>
+<h1>Admin Page - Set Subtitle, Footer Text, and Words</h1>
 <p>Enter a subtitle for the game:</p>
 <input type="text" id="subtitle-input" placeholder="Enter subtitle here" style="width:100%;max-width:400px;">
+
+<p>Enter footer text for the game:</p>
+<input type="text" id="footer-input" placeholder="Enter footer text here" style="width:100%;max-width:400px;">
 
 <p>Enter words for the bingo (one per line). At least 16 words required:</p>
 <textarea id="words-textarea" rows="10" cols="50" placeholder="One word per line"></textarea>
@@ -17,12 +20,13 @@
 <button id="generate-button">Generate Updated JSON</button>
 
 <h2>Updated JSON</h2>
-<p>Copy the JSON below and replace the content of <code>words.json</code> in your repository with it. Once committed, all players will see the updated words and subtitle.</p>
+<p>Copy the JSON below and replace the content of <code>words.json</code> in your repository with it. Once committed, all players will see the updated data.</p>
 <pre id="updated-json" style="background:#f0f0f0; padding:10px; white-space:pre-wrap;"></pre>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const subtitleInput = document.getElementById('subtitle-input');
+  const footerInput = document.getElementById('footer-input');
   const wordsTextarea = document.getElementById('words-textarea');
   const generateButton = document.getElementById('generate-button');
   const updatedJsonPre = document.getElementById('updated-json');
@@ -31,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.json())
     .then(data => {
       subtitleInput.value = data.subtitle || '';
+      footerInput.value = data.footer_text || '';
       wordsTextarea.value = (data.words || []).join('\n');
     })
     .catch(err => {
@@ -40,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   generateButton.addEventListener('click', () => {
     const subtitle = subtitleInput.value.trim();
+    const footer = footerInput.value.trim();
     const words = wordsTextarea.value
       .split('\n')
       .map(w => w.trim())
@@ -52,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const newData = {
       subtitle: subtitle,
+      footer_text: footer,
       words: words
     };
 
