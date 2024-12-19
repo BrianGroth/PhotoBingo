@@ -17,7 +17,7 @@
 </div>
 
 <footer>
-  <small>Enjoy this unique travel photo challenge and capture the world around you!</small>
+  <small id="footer-text"></small>
 </footer>
 
 <div id="win-message" class="hidden">
@@ -34,6 +34,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const board = document.getElementById('board');
   const subtitleElem = document.getElementById('subtitle');
+  const footerElem = document.getElementById('footer-text');
   const winMessage = document.getElementById('win-message');
   const closeWinBtn = document.getElementById('close-win');
   const photoInput = document.getElementById('photo-input');
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       subtitleElem.textContent = data.subtitle || '';
+      footerElem.textContent = data.footer_text || '';
       const allWords = data.words;
       initialSelectedWords = choose16RandomWords(allWords);
       createBoard(initialSelectedWords);
@@ -69,27 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
     board.innerHTML = '';
     cells = [];
 
-    for (let i = 0; i < gridSize; i++) {
-      for (let j = 0; j < gridSize; j++) {
-        const index = i * gridSize + j;
-        const cellDiv = document.createElement('div');
-        cellDiv.classList.add('bingo-cell');
-        cellDiv.dataset.index = index;
+    for (let i = 0; i < gridSize * gridSize; i++) {
+      const cellDiv = document.createElement('div');
+      cellDiv.classList.add('bingo-cell');
+      cellDiv.dataset.index = i;
 
-        const cellContent = document.createElement('div');
-        cellContent.classList.add('cell-content');
-        cellContent.textContent = words[index];
+      const cellContent = document.createElement('div');
+      cellContent.classList.add('cell-content');
+      cellContent.textContent = words[i];
 
-        cellDiv.appendChild(cellContent);
-        cellDiv.addEventListener('click', onCellClick);
-        cells.push({
-          element: cellDiv,
-          word: words[index],
-          hasImage: false
-        });
+      cellDiv.appendChild(cellContent);
+      cellDiv.addEventListener('click', onCellClick);
+      cells.push({
+        element: cellDiv,
+        word: words[i],
+        hasImage: false
+      });
 
-        board.appendChild(cellDiv);
-      }
+      board.appendChild(cellDiv);
     }
   }
 
