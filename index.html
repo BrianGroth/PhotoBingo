@@ -17,7 +17,7 @@
 </div>
 
 <footer>
-  <small>Enjoy your travels with this fun photo challenge!</small>
+  <small>Enjoy this unique travel photo challenge and capture the world around you!</small>
 </footer>
 
 <div id="win-message" class="hidden">
@@ -68,12 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function createBoard(words) {
     board.innerHTML = '';
     cells = [];
-    board.classList.add('bingo-board');
 
     for (let i = 0; i < gridSize; i++) {
-      const rowDiv = document.createElement('div');
-      rowDiv.classList.add('bingo-row');
-
       for (let j = 0; j < gridSize; j++) {
         const index = i * gridSize + j;
         const cellDiv = document.createElement('div');
@@ -85,17 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
         cellContent.textContent = words[index];
 
         cellDiv.appendChild(cellContent);
-        rowDiv.appendChild(cellDiv);
-
         cellDiv.addEventListener('click', onCellClick);
         cells.push({
           element: cellDiv,
           word: words[index],
           hasImage: false
         });
-      }
 
-      board.appendChild(rowDiv);
+        board.appendChild(cellDiv);
+      }
     }
   }
 
